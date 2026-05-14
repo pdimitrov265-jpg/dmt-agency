@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кариери | DMT-GROWTH</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E02020; --red-dark: #B01515; --red-glow: rgba(224,32,32,0.35);
+    --bg: #0a0a0a; --bg2: #111111; --bg3: #161616;
+    --white: #ffffff; --gray: #888888; --light: #cccccc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--white);
+    font-family: 'DM Sans', sans-serif; cursor: none; overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor { width: 12px; height: 12px; background: var(--red); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; }
+  .cursor-trail { width: 36px; height: 36px; border: 1.5px solid var(--red); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; opacity: 0.5; transition: all 0.18s ease; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px; background: rgba(10,10,10,0.85); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-icon { width: 38px; height: 38px; background: var(--red); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); display: flex; align-items: center; justify-content: center; position: relative; }
+  .nav-logo-icon::after { content: ''; width: 14px; height: 14px; background: white; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+  .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--white); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; position: relative; }
+  .nav-links a:hover { color: var(--white); }
+  
+  /* 3D BUTTON */
+  .btn-3d { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 36px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; border: none; cursor: none; border-radius: 6px; position: relative; transition: all 0.15s ease; transform-style: preserve-3d; }
+  .btn-3d.primary { background: var(--red); color: white; box-shadow: 0 6px 0 var(--red-dark), 0 8px 20px rgba(224,32,32,0.4); }
+  .btn-3d.primary:hover { transform: translateY(-3px); box-shadow: 0 9px 0 var(--red-dark), 0 14px 32px rgba(224,32,32,0.5); }
+  .btn-3d.primary:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--red-dark), 0 4px 12px rgba(224,32,32,0.3); }
+
+  /* HEADER & FORM */
+  .page-header { padding: 160px 48px 60px; text-align: center; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 80px); line-height: 1; letter-spacing: 2px; margin-bottom: 20px; }
+  .page-title span { color: var(--red); }
+  .page-desc { color: var(--gray); font-size: 16px; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+
+  .form-section { padding: 0 48px 100px; display: flex; justify-content: center; }
+  .career-form { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); padding: 48px; border-radius: 16px; width: 100%; max-width: 650px; position: relative; }
+  .career-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); border-radius: 16px 16px 0 0; }
+  
+  .input-group { margin-bottom: 24px; }
+  .input-group label { display: block; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; }
+  .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 16px; background: var(--bg); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; transition: all 0.3s; outline: none; }
+  .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--red); box-shadow: 0 0 15px rgba(224,32,32,0.1); }
+  
+  /* Noise overlay */
+  body::after { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 9990; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; } .nav-links { display: none; }
+    .page-header { padding: 120px 20px 40px; }
+    .form-section { padding: 0 20px 60px; }
+    .career-form { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon"></div>
+    <span class="nav-logo-text">DMT-GROWTH</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">← Назад към сайта</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1 class="page-title">Стани част от <span>Екипа</span></h1>
+  <p class="page-desc">Търсим мотивирани и гладни за успех хора, които искат да се развиват в сферата на дигиталния маркетинг. Попълни формата по-долу и ще се свържем с теб.</p>
+</div>
+
+<!-- FORM SECTION -->
+<div class="form-section">
+  <!-- ВНИМАНИЕ: СЛОЖИ ТВОЯ ЛИНК ОТ FORMSPREE ТУК -->
+  <form action="https://formspree.io/f/xeenbezl" method="POST" class="career-form">
+    
+    <div class="input-group">
+      <label>Име и Фамилия</label>
+      <input type="text" name="Име" required placeholder="напр. Иван Иванов">
+    </div>
+
+    <div class="input-group">
+      <label>Имейл за връзка</label>
+      <input type="email" name="email" required placeholder="напр. ivan@gmail.com">
+    </div>
+
+    <div class="input-group">
+      <label>В коя сфера си най-силен?</label>
+      <select name="Умение" required>
+        <option value="" disabled selected>Избери от списъка...</option>
+        <option value="Social Media">Управление на Социални Мрежи</option>
+        <option value="Ads">Facebook / Google Реклами</option>
+        <option value="Design">Графичен Дизайн / Обработка на Видео</option>
+        <option value="Copywriting">Копирайтинг (Писане на текстове)</option>
+        <option value="Other">Друго (ще обясня по-долу)</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Линк към твое портфолио / профили</label>
+      <input type="text" name="Портфолио" placeholder="Instagram, Behance, Google Drive линк...">
+    </div>
+
+    <div class="input-group">
+      <label>Защо искаш да работиш с DMT-Growth?</label>
+      <textarea name="Съобщение" rows="5" required placeholder="Разкажи ми малко повече за себе си и опита си..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-3d primary" style="width: 100%; margin-top: 10px;">
+      Изпрати Кандидатура <span class="btn-arrow">→</span>
+    </button>
+  </form>
+</div>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor'), trail = document.getElementById('cursorTrail');
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx - 6 + 'px'; cursor.style.top = my - 6 + 'px'; });
+  function animTrail() { tx += (mx - tx) * 0.12; ty += (my - ty) * 0.12; trail.style.left = tx - 18 + 'px'; trail.style.top = ty - 18 + 'px'; requestAnimationFrame(animTrail); }
+  animTrail();
+  document.querySelectorAll('a, button, input, select, textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; trail.style.transform = 'scale(1.5)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; trail.style.transform = 'scale(1)'; });
+  });
+</script>
+</body>
+</html>
